@@ -9,6 +9,8 @@
 
 extern crate void;
 
+use std::mem;
+
 /// Hint to the optimizer that any code path which calls this function is
 /// statically unreachable and can be removed.
 ///
@@ -20,13 +22,21 @@ pub unsafe fn unreachable() -> ! {
     void::unreachable(*x)
 }
 
+/// An extension trait for `Option<T>` providing unchecked unwrapping methods.
 pub trait UncheckedOptionExt<T> {
+    /// Get the value out of this Option without checking for None.
     unsafe fn unchecked_unwrap(self) -> T;
+
+    /// Assert that this Option is a None to the optimizer.
     unsafe fn unchecked_unwrap_none(self);
 }
 
+/// An extension trait for `Result<T, E>` providing unchecked unwrapping methods.
 pub trait UncheckedResultExt<T, E> {
+    /// Get the value out of this Result without checking for Err.
     unsafe fn unchecked_unwrap_ok(self) -> T;
+
+    /// Get the error out of this Result without checking for Ok.
     unsafe fn unchecked_unwrap_err(self) -> E;
 }
 
