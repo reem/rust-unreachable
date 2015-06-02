@@ -20,3 +20,45 @@ pub unsafe fn unreachable() -> ! {
     void::unreachable(*x)
 }
 
+pub trait UncheckedOptionExt<T> {
+    unsafe fn unchecked_unwrap(self) -> T;
+    unsafe fn unchecked_unwrap_none(self);
+}
+
+pub trait UncheckedResultExt<T, E> {
+    unsafe fn unchecked_unwrap_ok(self) -> T;
+    unsafe fn unchecked_unwrap_err(self) -> E;
+}
+
+impl<T> UncheckedOptionExt<T> for Option<T> {
+    unsafe fn unchecked_unwrap(self) -> T {
+        match self {
+            Some(x) => x,
+            None => unreachable()
+        }
+    }
+
+    unsafe fn unchecked_unwrap_none(self) {
+        match self {
+            Some(_) => unreachable(),
+            None => ()
+        }
+    }
+}
+
+impl<T, E> UncheckedResultExt<T, E> for Result<T, E> {
+    unsafe fn unchecked_unwrap_ok(self) -> T {
+        match self {
+            Ok(x) => x,
+            Err(_) => unreachable()
+        }
+    }
+
+    unsafe fn unchecked_unwrap_err(self) -> E {
+        match self {
+            Ok(_) => unreachable(),
+            Err(e) => e
+        }
+    }
+}
+
