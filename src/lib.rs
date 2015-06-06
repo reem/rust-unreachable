@@ -17,6 +17,7 @@ use std::mem;
 /// Calling this function in reachable code invokes undefined behavior. Be
 /// very, very sure this is what you want; often, a simple `panic!` is more
 /// suitable.
+#[inline]
 pub unsafe fn unreachable() -> ! {
     let x: &void::Void = mem::transmute(1usize);
     void::unreachable(*x)
