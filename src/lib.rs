@@ -7,8 +7,6 @@
 //! extension traits for `Option` and `Result`.
 //!
 
-extern crate void;
-
 /// Hint to the optimizer that any code path which calls this function is
 /// statically unreachable and can be removed.
 ///
@@ -17,7 +15,9 @@ extern crate void;
 /// suitable.
 #[inline]
 pub unsafe fn unreachable() -> ! {
-    match *(1 as *const void::Void) {
+    enum Void { }
+
+    match *(1 as *const Void) {
         /* unreachable */
     }
 }

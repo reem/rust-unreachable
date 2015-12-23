@@ -9,5 +9,4 @@ readme = "README.md"
 license = "MIT"
 
 [dependencies]
-void = "0"
 
