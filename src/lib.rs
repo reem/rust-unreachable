@@ -7,9 +7,11 @@
 //! extension traits for `Option` and `Result`.
 //!
 
+#![no_std]
+
 extern crate void;
 
-use std::mem;
+use core::mem;
 
 /// Hint to the optimizer that any code path which calls this function is
 /// statically unreachable and can be removed.

@@ -8,6 +8,7 @@ description = "An unreachable code optimization hint in stable rust."
 readme = "README.md"
 license = "MIT"
 
-[dependencies]
-void = "0"
+[dependencies.void]
+version = "0"
+default-features = false
 
