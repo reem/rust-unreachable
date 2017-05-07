@@ -30,6 +30,12 @@ pub trait UncheckedOptionExt<T> {
     /// Get the value out of this Option without checking for None.
     unsafe fn unchecked_unwrap(self) -> T;
 
+    /// Get a reference to the value in this Option without checking for None.
+    unsafe fn unchecked_unwrap_as_ref(&self) -> &T;
+
+    /// Get a mutable reference to the value in this Option without checking for None.
+    unsafe fn unchecked_unwrap_as_mut(&mut self) -> &mut T;
+
     /// Assert that this Option is a None to the optimizer.
     unsafe fn unchecked_unwrap_none(self);
 }
@@ -39,14 +45,40 @@ pub trait UncheckedResultExt<T, E> {
     /// Get the value out of this Result without checking for Err.
     unsafe fn unchecked_unwrap_ok(self) -> T;
 
+    /// Get a reference to the value in this Result without checking for Err.
+    unsafe fn unchecked_unwrap_ok_as_ref(&self) -> &T;
+
+    /// Get a mutable reference to the value in this Result without checking for Err.
+    unsafe fn unchecked_unwrap_ok_as_mut(&mut self) -> &mut T;
+
     /// Get the error out of this Result without checking for Ok.
     unsafe fn unchecked_unwrap_err(self) -> E;
+
+    /// Get a reference to the value in this Result without checking for Ok.
+    unsafe fn unchecked_unwrap_err_as_ref(&self) -> &E;
+
+    /// Get a mutable reference to the value in this Result without checking for Ok.
+    unsafe fn unchecked_unwrap_err_as_mut(&mut self) -> &mut E;
 }
 
 impl<T> UncheckedOptionExt<T> for Option<T> {
     unsafe fn unchecked_unwrap(self) -> T {
         match self {
             Some(x) => x,
+            None => unreachable()
+        }
+    }
+
+    unsafe fn unchecked_unwrap_as_ref(&self) -> &T {
+        match *self {
+            Some(ref x) => x,
+            None => unreachable()
+        }
+    }
+
+    unsafe fn unchecked_unwrap_as_mut(&mut self) -> &mut T {
+        match *self {
+            Some(ref mut x) => x,
             None => unreachable()
         }
     }
@@ -67,10 +99,38 @@ impl<T, E> UncheckedResultExt<T, E> for Result<T, E> {
         }
     }
 
+    unsafe fn unchecked_unwrap_ok_as_ref(&self) -> &T {
+        match *self {
+            Ok(ref x) => x,
+            Err(_) => unreachable()
+        }
+    }
+
+    unsafe fn unchecked_unwrap_ok_as_mut(&mut self) -> &mut T {
+        match *self {
+            Ok(ref mut x) => x,
+            Err(_) => unreachable()
+        }
+    }
+
     unsafe fn unchecked_unwrap_err(self) -> E {
         match self {
             Ok(_) => unreachable(),
             Err(e) => e
+        }
+    }
+
+    unsafe fn unchecked_unwrap_err_as_ref(&self) -> &E {
+        match *self {
+            Ok(_) => unreachable(),
+            Err(ref e) => e
+        }
+    }
+
+    unsafe fn unchecked_unwrap_err_as_mut(&mut self) -> &mut E {
+        match *self {
+            Ok(_) => unreachable(),
+            Err(ref mut e) => e
         }
     }
 }
