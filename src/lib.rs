@@ -9,9 +9,9 @@
 
 #![no_std]
 
-extern crate void;
-
 use core::mem;
+
+enum Void {}
 
 /// Hint to the optimizer that any code path which calls this function is
 /// statically unreachable and can be removed.
@@ -21,8 +21,8 @@ use core::mem;
 /// suitable.
 #[inline]
 pub unsafe fn unreachable() -> ! {
-    let x: &void::Void = mem::transmute(1usize);
-    void::unreachable(*x)
+    let x: &Void = mem::transmute(1usize);
+    match *x {}
 }
 
 /// An extension trait for `Option<T>` providing unchecked unwrapping methods.
