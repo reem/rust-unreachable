@@ -2,7 +2,7 @@
 
 > An unreachable code optimization hint in stable rust.
 
-## [Documentation](https://crates.fyi/crates/unreachable/0.1.1)
+## [Documentation](https://crates.fyi/crates/unreachable/1.0.0)
 
 ## Usage
 
@@ -11,7 +11,7 @@ with the rest of your dependencies:
 
 ```toml
 [dependencies]
-unreachable = "0.1"
+unreachable = "1.0"
 ```
 
 ## Author
