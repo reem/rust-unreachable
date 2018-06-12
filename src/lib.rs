@@ -17,8 +17,10 @@ use core::mem;
 /// statically unreachable and can be removed.
 ///
 /// Calling this function in reachable code invokes undefined behavior. Be
-/// very, very sure this is what you want; often, a simple `panic!` is more
+/// very, very sure this is what you want; often, [`unreachable!`] is more
 /// suitable.
+///
+/// [unreachable!]: https://doc.rust-lang.org/std/macro.unreachable.html
 #[inline]
 pub unsafe fn unreachable() -> ! {
     let x: &void::Void = mem::transmute(1usize);
