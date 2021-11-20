@@ -11,7 +11,7 @@ with the rest of your dependencies:
 
 ```toml
 [dependencies]
-unreachable = "0.1"
+unreachable = "1.0"
 ```
 
 ## Author
