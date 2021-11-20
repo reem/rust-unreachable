@@ -2,7 +2,7 @@
 
 > An unreachable code optimization hint in stable rust.
 
-## [Documentation](https://crates.fyi/crates/unreachable/0.1.1)
+## [Documentation](https://docs.rs/unreachable/)
 
 ## Usage
 
