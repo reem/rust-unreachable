@@ -12,7 +12,7 @@
 *.exe
 *-test
 /doc/
-/target/
+/target
 /examples/*
 !/examples/*.rs
 Cargo.lock
